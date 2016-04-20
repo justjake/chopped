@@ -1,0 +1,13 @@
+DEPENDENCIES
+  openssh (~> 2.0.0)
+  runit (~> 1.7.6)
+  users (~> 2.0.3)
+
+GRAPH
+  iptables (2.2.0)
+  openssh (2.0.0)
+    iptables (>= 1.0)
+  packagecloud (0.2.0)
+  runit (1.7.6)
+    packagecloud (>= 0.0.0)
+  users (2.0.3)
