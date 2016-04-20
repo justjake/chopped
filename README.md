@@ -34,6 +34,8 @@ and at work, and I appreciate its design.
 
 ## How to get going
 
+### One-time setup:
+
 I suggest creating a new RVM or rbenv context with ruby 2.x for use with this
 project. I did `rbenv install 2.2.3` and then `rbenv local 2.2.3` to use ruby
 2.2.3 for this.
@@ -43,6 +45,15 @@ Perform this one-time setup:
 1. `bundle install`
 1. `bundle exec berks install`
 1. `vagrant up`
+
+### Creating a cookbook
+
+Put cookbooks in the `site-cookbooks` folder. `cookbooks` folder is reserved
+for upstream dependencies.
+
+`knife cookbook create -o site-cookbooks/ YOUR_NEW_COOKBOOK`
+
+### Testing chef in Vagrant
 
 Then, you can provision your vagrant box using `knife solo` to test out this
 chef repo. I haven't done this yet, but it looks like this in theory:
