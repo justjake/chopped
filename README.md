@@ -9,6 +9,10 @@ knife-solo kitchen for deploying fun servers.
   active save, managing save backups (autosaves), etc. Ubuntu-based service
   descriptions exist in the wild for Factorio, but are shitty (eg using
   `screen` for persistance and daemonization)
+  - why not just use [the existing chef
+    cookbook](https://github.com/sghar/factorio-cookbook/blob/master/recipes/default.rb)?
+    Because it's running Factorio, an untrusted C++ binary network service, as
+    root. Unacceptable if we are putting this server on the general internet.
 
 - Minecraft host. ????. I don't care how it works, but it should be chef
   configurable :)
