@@ -1,0 +1,17 @@
+#!/bin/sh
+exec 2>&1
+
+<%
+command = [
+  node.factorio.binary % {install_location: node.factorio.install_location},
+  "--config #{node.factorio.config_location}/config.ini",
+  "--port #{node.factorio.port}",
+  "--start-server #{node.factorio.save_name}",
+  "--autosave-interval #{node.factorio.autosave_interval}",
+  "--autosave-slots #{node.factorio.autosave_slots}",
+  "--latency-ms #{node.factorio.latency}",
+  node.factorio.extra_bindings
+].join(' ')
+%>
+
+exec chpst -u factorio <%= command %>
