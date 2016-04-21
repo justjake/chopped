@@ -45,6 +45,8 @@ Perform this one-time setup:
 1. `bundle install`
 1. `bundle exec berks install`
 1. `vagrant up`
+1. `bundle exec knife solo prepare vagrant@127.0.0.1 -p 2222 -i ./.vagrant/machines/default/virtualbox/private_key`
+   prepares your Vagrant machine for knife-solo development by setting up chef on it.
 
 ### Creating a cookbook
 
@@ -53,9 +55,18 @@ for upstream dependencies.
 
 `knife cookbook create -o site-cookbooks/ YOUR_NEW_COOKBOOK`
 
+### GO GO GADGET COOKBOOK.
+
+edit nodes/127.0.0.1.json to configure the run_list for your vagrant box.
+
+Put something like `recipe[base]` in there for good measure and let it rip:
+
+`knife solo cook vagrant@127.0.0.1 -p 2222 -i ./.vagrant/machines/default/virtualbox/private_key`
+
+On future runs you should be using your own user account to cook and clean the
+box, since the vagrant user may no longer be allowed to SSH.
+
 ### Testing chef in Vagrant
 
 Then, you can provision your vagrant box using `knife solo` to test out this
 chef repo. I haven't done this yet, but it looks like this in theory:
-
-`bundle exec knife solo prepare vagrant@127.0.0.1 -p 2222 -i ./.vagrant/machines/default/virtualbox/private_key`

@@ -5,12 +5,12 @@
 #
 # All rights reserved - Do Not Redistribute
 
-node.packages.each do |pkg|
-  package pkg
-end
-
 # provision users who have group `sysadmin` on every box
 # see https://supermarket.chef.io/cookbooks/users#recipe-overview
+
+# get search working
+include_recipe 'chef-solo-search'
+
 include_recipe 'users::sysadmins'
 
 # provision ssh
@@ -22,4 +22,9 @@ include_recipe 'sudo'
 sudo 'sysadmin' do
   group 'sysadmin'
   nopasswd true
+end
+
+# install site_packages
+node.site_packages.each do |pkg|
+  package pkg
 end

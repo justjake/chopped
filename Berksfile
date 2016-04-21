@@ -4,7 +4,7 @@ source "https://api.berkshelf.com"
 cookbook 'users', '~> 2.0.3'
 cookbook 'openssh', '~> 2.0.0'
 cookbook 'sudo', '~> 2.9.0'
-
+cookbook 'chef-solo-search'
 
 # service management
 cookbook 'runit', '~> 1.7.6'

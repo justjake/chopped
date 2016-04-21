@@ -1,7 +1,10 @@
 {
   "id": "jitl",
+  "password": "*",
   "ssh_keys": [
     "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCH49MowecaQa7lt3S3xjqo2g72j6/7x9RqGO3OTYOAfpaQM6DFDTbU14+3GPNZSDgAqGbH7sIkTuOrMedJ5Qb9XczjfRe6Ut8D4Lhdu5r07IWSgWwA0I+k7nPUX6ySmID89IVQiAHXgcObVcRA9OZeCpk7fn71IMVvIeKZUV80AwOFkrcyaQ0Ymo1XiIJIvtcl9Ba1Ko5pjji+1icm/eMEbAMp0Gyg20dXM7/sky9G9uIpGYVSgOuDcfUXHYdahHQKinXKdpSsh20CTYnEtQ4OTJv1+PKln4a98psIO3vuWbH9Oc58CSfgkkdEvEfI6jmBemlRyeN/yhqWZmp1aBoB jake.teton-landis+goldkey@airbnb.com"
   ],
   "groups": ["sysadmin"],
+  "shell": "/usr/bin/zsh",
+  "comment": "Jake Teton-Landis"
 }

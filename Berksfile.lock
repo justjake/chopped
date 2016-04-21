@@ -1,10 +1,12 @@
 DEPENDENCIES
+  chef-solo-search
   openssh (~> 2.0.0)
   runit (~> 1.7.6)
   sudo (~> 2.9.0)
   users (~> 2.0.3)
 
 GRAPH
+  chef-solo-search (0.5.1)
   iptables (2.2.0)
   openssh (2.0.0)
     iptables (>= 1.0)
