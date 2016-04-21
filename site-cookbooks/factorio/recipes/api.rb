@@ -8,6 +8,7 @@ remote_directory node.factorio.api.install_location do
   owner 'root'
   group 'root'
   mode '0755'
+  notifies :restart, "runit_service[factorio-api]"
 end
 
 file 'config' do
@@ -18,6 +19,19 @@ end
 execute 'bundle_install' do
   command 'bundle install --deployment'
   cwd node.factorio.api.install_location
+end
+
+# allow factorio user to control service status
+sudo 'factorio' do
+  user 'factorio'
+  runas 'root'
+  nopasswd true
+  commands [
+    '/usr/bin/sv restart factorio',
+    '/usr/bin/sv status factorio',
+    '/usr/bin/sv stop factorio',
+    '/usr/bin/sv start factorio'
+  ]
 end
 
 runit_service 'factorio-api' do

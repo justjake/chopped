@@ -1,6 +1,7 @@
 require 'json'
 require 'yaml'
 require 'pathname'
+require 'open3'
 require 'sinatra'
 
 APP_DIR = File.dirname(__FILE__)
@@ -62,7 +63,7 @@ class Factorio
   end
 
   def saves
-    save_dirs.entries.map { |e| Save.new(self, e.to_s) }
+    save_dirs.entries.map { |e| Save.new(self, e.to_s) }.reject { |save| save.name == '.' || save.name == '..' }
   end
 
   ### service
@@ -95,6 +96,11 @@ class Factorio
   def save_dirs
     storage_location.join('save_dirs')
   end
+
+  def run(command)
+    result, status = Open3.capture2e(command)
+    return result
+  end
 end
 
 factorio = Factorio.new(CONFIG)
@@ -103,7 +109,7 @@ get '/' do
   content_type :json
 
   {
-    :saves => factorio.saves.map(&:name).to_json,
+    :saves => factorio.saves.map(&:name),
     :current => factorio.current_save.name,
     :status => factorio.status_service,
   }.to_json
