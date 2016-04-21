@@ -74,6 +74,10 @@ class Factorio
     run('sudo sv start factorio')
   end
 
+  def status_service
+    run('sudo sv status factorio')
+  end
+
   def with_stopped_service
     stop_service
     begin
@@ -101,6 +105,7 @@ get '/' do
   {
     :saves => factorio.saves.map(&:name).to_json,
     :current => factorio.current_save.name,
+    :status => factorio.status_service,
   }.to_json
 end
 
@@ -138,7 +143,11 @@ post '/save' do
   end
   # TODO: write save data, if given, and if the save data is a zip
   # if the save is the current save, do this in a with_stopped_service block
-  { :created => created, :save => save.name, :uploaded => false }.to_json
+
+  # TODO: if params[make_current] or soemthing, also make the newley modified
+  # save the current save.
+
+  { :created => created, :save => save.name, :uploaded => false, :current => factorio.current_save.name }.to_json
 end
 
 get '/save/:name' do
@@ -154,5 +163,3 @@ end
 get '/log/api' do
   # TODO: download the log file from /var/log/factorio-api
 end
-
-post
