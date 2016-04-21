@@ -1,16 +1,49 @@
-#!/bin/sh
+#!/bin/bash -ex
 exec 2>&1
 
 <%
+save_dir = ::File.join(node.factorio.save_location, 'saves')
+save_path = ::File.join(save_dir, node.factorio.save_name) + '.zip'
+exe_path = node.factorio.binary % {install_location: node.factorio.install_location}
+%>
+
+SAVE_DIR="<%= save_dir %>"
+SAVE_PATH="<%= save_path %>"
+
+# create save if it does not exist
+if [ ! -f "$SAVE_PATH" ]; then
+  chpst -u factorio <%= exe_path %> --create <%= node.factorio.save_name %>
+else
+  # Check if there's a more recent autosave (e.g. server crashed)
+  LATEST_SAVEFILE="$(ls -t "$SAVE_DIR" 2>/dev/null | head -1)"
+  if [ -z "$LATEST_SAVEFILE" ]; then
+    echo "Couldn't identify latest save game in $SAVE_DIR, aborting."
+    exit 1
+  fi
+
+  # If the more recent save isn't the main save, replace the main save
+  if [ "$LATEST_SAVEFILE" == "<%= node.factorio.save_name %>.zip" ]; then
+    echo "Save is up to date - using $SAVE_PATH."
+  else
+    if echo "$LATEST_SAVEFILE" | grep -qF "_autosave"; then
+      echo "Found more recent save $LATEST_SAVEFILE (server crashed?) - transferring to $SAVE_PATH."
+      chpst -u factorio cp "$SAVE_DIR/$LATEST_SAVEFILE" "$SAVE_PATH"
+    else
+      echo "Found a more recent save $LATEST_SAVEFILE, but it doesn't appear to be an autosave. Ignoring."
+    fi
+  fi
+fi
+
+<%
 command = [
-  node.factorio.binary % {install_location: node.factorio.install_location},
-  "--config #{node.factorio.config_location}/config.ini",
+  exe_path,
+  "--config #{::File.join(node.factorio.config_location, 'config.ini')}",
   "--port #{node.factorio.port}",
   "--start-server #{node.factorio.save_name}",
   "--autosave-interval #{node.factorio.autosave_interval}",
   "--autosave-slots #{node.factorio.autosave_slots}",
   "--latency-ms #{node.factorio.latency}",
-  node.factorio.extra_bindings
+  node.factorio.extra_bin_args,
 ].join(' ')
 %>
 

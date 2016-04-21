@@ -1,6 +1,7 @@
 {
   "run_list": [
-    "recipe[base]"
+    "recipe[base]",
+    "recipe[factorio]"
   ],
   "automatic": {
     "ipaddress": "127.0.0.1"

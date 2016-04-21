@@ -7,6 +7,9 @@
 # All rights reserved - Do Not Redistribute
 #
 
+# we need runit later. install deps now.
+include_recipe 'runit'
+
 # create a service user. We do not want to run Factorio as root.
 user 'factorio' do
   password '*'
@@ -14,28 +17,8 @@ user 'factorio' do
   home '/dev/null'
 end
 
-# can we put a big if around all this checking if we need to perform an install?
-directory 'tmp' do
-  path node.factorio.tmp_location
-  recursive true
-end
-
-download_uri = node.factorio.download_uri % {version: node.factorio.version}
-
-remote_file 'download' do
-  source download_uri
-  path File.join(node.factorio.tmp_location, 'factorio.tar.gz')
-end
-
-bash 'install' do
-  user 'root'
-  cwd node.factorio.tmp_location
-  creates 'maybe'
-  code <<-EOH
-    tar xzf factorio.tar.gz
-    mv factorio #{node.factorio.install_location}
-  EOH
-end
+exec_file = node.factorio.binary % {install_location: node.factorio.install_location}
+is_installed = -> { ::File.exist?(exec_file) }
 
 ### make sure everything has the right permissions
 directory '/opt' do
@@ -50,7 +33,39 @@ directory node.factorio.install_location do
   group 'root'
   mode '0755'
   recursive true
+  not_if(&is_installed)
 end
+
+### DO INSTALL
+# can we put a big if around all this checking if we need to perform an install?
+directory 'tmp' do
+  path node.factorio.tmp_location
+  recursive true
+  not_if(&is_installed)
+end
+
+download_uri = node.factorio.download_uri % {version: node.factorio.version}
+
+remote_file 'download' do
+  source download_uri
+  path File.join(node.factorio.tmp_location, 'factorio.tar.gz')
+  not_if(&is_installed)
+end
+
+bash 'install' do
+  user 'root'
+  cwd node.factorio.tmp_location
+  creates 'maybe'
+  code <<-EOH
+    ERROR=0
+    tar xzf factorio.tar.gz || ERROR=1
+    rmdir #{node.factorio.install_location} || ERROR=1
+    mv factorio #{node.factorio.install_location} || ERROR=1
+    exit $ERROR
+  EOH
+  not_if(&is_installed)
+end
+### END INSTALL
 
 directory node.factorio.save_location do
   owner 'factorio'
