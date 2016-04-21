@@ -86,8 +86,10 @@ directory 'default_save' do
 end
 
 link 'enable_default_save' do
-  to factorio_save_target
-  target_file default_save_dir
+  owner 'factorio'
+  group 'factorio'
+  target_file factorio_save_target
+  to default_save_dir
   not_if { ::File.exist?(factorio_save_target) }
 end
 

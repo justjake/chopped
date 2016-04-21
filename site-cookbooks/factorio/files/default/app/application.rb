@@ -4,7 +4,7 @@ require 'pathname'
 require 'sinatra'
 
 APP_DIR = File.dirname(__FILE__)
-CONFIG = YAML::load(File.read(APP_DIR))
+CONFIG = YAML::load(File.read(File.join(APP_DIR, 'config.yml')))
 
 class Factorio
 
@@ -123,7 +123,7 @@ post '/current_save' do
   end
 
   if target == factorio.current_save
-    halt 302, { :save => target.name, :action :no_op }.to_json
+    halt 302, { :save => target.name, :action => :no_op }.to_json
   end
 
   old_save = factorio.current_save
