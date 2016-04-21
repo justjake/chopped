@@ -19,6 +19,7 @@ default.factorio.latency = 250
 # save settings
 default.factorio.autosave_interval = 10
 default.factorio.autosave_slots = 10
+# you don't ever need to change this
 default.factorio.save_name = 'chef-default-save'
 
 # Add extra arguments when we run the factorio server

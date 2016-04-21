@@ -12,7 +12,7 @@ end
 
 file 'config' do
   path ::File.join(node.factorio.api.install_location, 'config.yml')
-  contents node.factorio.to_h.to_yaml
+  content node.factorio.to_h.to_yaml
 end
 
 execute 'bundle_install' do

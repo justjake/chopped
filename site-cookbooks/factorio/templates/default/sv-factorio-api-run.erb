@@ -2,4 +2,4 @@
 exec 2>&1
 
 chdir <%= node.factorio.api.install_location %>
-exec chpst -u factorio bundle exec ./application.rb
+exec chpst -u factorio bundle exec ruby ./application.rb
