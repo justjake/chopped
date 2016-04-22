@@ -1,12 +1,14 @@
 require 'yaml'
 require 'sinatra'
+require 'base64'
 
 require_relative './lib/factorio'
 
 # TODO: create a logger
 
 APP_DIR = File.dirname(__FILE__)
-CONFIG = YAML::load(File.read(File.join(APP_DIR, 'config.yml')))
+CONFIG_PATH = ENV['CONFIG'] || File.join(APP_DIR, 'config.yml')
+CONFIG = YAML::load(File.read(CONFIG_PATH))
 factorio = Factorio.new(CONFIG)
 
 get '/' do
@@ -24,7 +26,7 @@ post '/current_save' do
   target = factorio.saves.create(params['name'])
 
   if !target.exist?
-    halt 404, { :error => :not_found, :save => target.name, :action => :none }.to_json
+    halt 404, { :error => :not_found, :save => target, :action => :none }.to_json
   end
 
   if target == factorio.saves.current
@@ -39,7 +41,19 @@ end
 get '/saves/:name' do
   content_type :json
 
+  save = factorio.saves.create(params['name'])
+
+  if !save.exist?
+    halt 404, { :error => :not_found, :save => save }
+  end
+
   # TODO: download the save zip file
+  result = { :save => save }
+  if save.head.exist?
+    result[:head] = Base64.encode64(save.head.read)
+  end
+
+  result.to_json
 end
 
 post '/saves/:name' do
@@ -62,9 +76,11 @@ post '/saves/:name' do
 end
 
 get '/log' do
-  # TODO: download the log file from /var/log/factorio
+  content_type :json
+  { :log => factorio.server.log }.to_json
 end
 
 get '/log/api' do
-  # TODO: download the log file from /var/log/factorio-api
+  file = Pathname.new('/var/log/factorio-api/current')
+  { :log => file.read }.to_json
 end

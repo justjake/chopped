@@ -1,7 +1,7 @@
 class Factorio
   class SaveService < BaseService
     def current
-      name = factorio.storage_location.join('saves').readlink.basename
+      name = factorio.storage_location.join('saves').readlink.basename.to_s
       Save.new(self, name)
     end
 
@@ -14,10 +14,10 @@ class Factorio
     end
 
     def all
-      location.entries.select do |entry|
-        entry.directory? && entry.basename != '.' && entry.basename != '..'
+      location.children.select do |entry|
+        entry.directory? && entry.basename.to_s != '.' && entry.basename.to_s != '..'
       end.map do |entry|
-        Save.new(self, entry.basename)
+        Save.new(self, entry.basename.to_s)
       end
     end
 
@@ -53,7 +53,7 @@ class Factorio
       end
 
       @name = name
-      @service = factorio
+      @service = service
     end
 
     def exist?
@@ -68,6 +68,10 @@ class Factorio
       Pathname.new(service.location.join(name))
     end
 
+    def head
+      location.join(service.factorio.config['save_name'] + '.zip')
+    end
+
     # will be populated by the factorio service when it sees no save in the
     # folder.
     def create
@@ -76,8 +80,7 @@ class Factorio
 
     def write(data)
       # TODO: validate data
-      save_path = location.join(service.factorio.config['save_name'] + '.zip')
-      save_path.open('w') do |file|
+      head.open('w') do |file|
         file.write(data)
       end
     end

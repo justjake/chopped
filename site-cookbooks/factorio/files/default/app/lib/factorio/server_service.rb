@@ -29,6 +29,14 @@ class Factorio
       end
     end
 
+    def log_file
+      Pathname.new('/var/log/factorio/current')
+    end
+
+    def log
+      log_file.read
+    end
+
     def to_json(state = nil)
       { :status => status }.to_json(state)
     end

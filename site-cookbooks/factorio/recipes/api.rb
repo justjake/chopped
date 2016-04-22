@@ -1,6 +1,7 @@
 # Installs an HTTP API alongside your factorio game service
 require 'yaml'
 
+package 'ruby-dev'
 gem_package 'bundler'
 
 remote_directory node.factorio.api.install_location do
