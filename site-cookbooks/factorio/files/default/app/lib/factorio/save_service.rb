@@ -79,10 +79,12 @@ class Factorio
     end
 
     def write(data)
-      # TODO: validate data
-      head.open('wb') do |file|
-        file.write(data)
+      if current?
+        service.factorio.server.while_stopped do
+          return _write(data)
+        end
       end
+      return _write(data)
     end
 
     def ==(other)
@@ -95,6 +97,15 @@ class Factorio
 
     def to_json(state = nil)
       { :name => name }.to_json(state)
+    end
+
+    private
+
+    def _write(data)
+      # TODO: validate data
+      head.open('wb') do |file|
+        file.write(data)
+      end
     end
   end # end class
 end

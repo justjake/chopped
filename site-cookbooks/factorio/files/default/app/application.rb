@@ -62,23 +62,28 @@ get '/saves/:name' do
   next result.to_json
 end
 
+# param :file can be used to upload a file
 post '/saves/:name' do
   content_type :json
-
-  save = factorio.saves.create(params['name'])
   created = false
+  uploaded = false
+  save = factorio.saves.create(params['name'])
+
   begin
     save.create
     created = true
   rescue Errno::EEXIST
   end
-  # TODO: write save data, if given, and if the save data is a zip
-  # if the save is the current save, do this in a with_stopped_service block
 
-  # TODO: if params[make_current] or soemthing, also make the newley modified
-  # save the current save.
+  if file = params['file']
+    # TODO: ensure uploaded file is a zip
+    # TODO: ensure uploaded file is under a certain size
+    data = file[:tempfile].read
+    save.write(data)
+    uploaded = true
+  end
 
-  { :created => created, :save => save, :uploaded => false, :current => factorio.saves.current }.to_json
+  { :created => created, :save => save, :uploaded => uploaded }.to_json
 end
 
 get '/log' do
