@@ -80,7 +80,7 @@ class Factorio
 
     def write(data)
       # TODO: validate data
-      head.open('w') do |file|
+      head.open('wb') do |file|
         file.write(data)
       end
     end
