@@ -1,14 +1,20 @@
 class Factorio
   class SaveService < BaseService
     def current
-      name = factorio.storage_location.join('saves').readlink.basename.to_s
-      Save.new(self, name)
+      if factorio_saves_dir.exist?
+        name = factorio_saves_dir.readlink.basename.to_s
+        return Save.new(self, name)
+      end
     end
 
     def set_current(save)
-      prev_save = current_save
-      factorio.while_stopped do
-        factorio_saves_dir.unlink.symlink(save.location)
+      prev_save = current
+      factorio.server.while_stopped do
+        if prev_save
+          factorio_saves_dir.unlink
+        end
+
+        factorio_saves_dir.make_symlink(save.location)
       end
       prev_save
     end

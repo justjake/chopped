@@ -11,6 +11,10 @@ CONFIG_PATH = ENV['CONFIG'] || File.join(APP_DIR, 'config.yml')
 CONFIG = YAML::load(File.read(CONFIG_PATH))
 factorio = Factorio.new(CONFIG)
 
+def log(something)
+  puts("factorio-api: #{something}")
+end
+
 get '/' do
   content_type :json
   factorio.to_json
@@ -75,10 +79,10 @@ post '/saves/:name' do
   rescue Errno::EEXIST
   end
 
-  if file = params['file']
+  if params['file']
+    data = params['file'][:tempfile].read
     # TODO: ensure uploaded file is a zip
     # TODO: ensure uploaded file is under a certain size
-    data = file[:tempfile].read
     save.write(data)
     uploaded = true
   end
