@@ -39,21 +39,27 @@ post '/current_save' do
 end
 
 get '/saves/:name' do
-  content_type :json
-
   save = factorio.saves.create(params['name'])
 
   if !save.exist?
     halt 404, { :error => :not_found, :save => save }
   end
 
-  # TODO: download the save zip file
   result = { :save => save }
+
   if save.head.exist?
-    result[:head] = Base64.encode64(save.head.read)
+    data = save.head.read
+
+    if params['download']
+      content_type 'application/octet-stream'
+      next data
+    end
+
+    result[:head] = Base64.encode64(data)
   end
 
-  result.to_json
+  content_type :json
+  next result.to_json
 end
 
 post '/saves/:name' do
