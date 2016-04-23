@@ -1,5 +1,6 @@
 # install some basics
 default.site_packages = [
+  'build-essential',
   'git',
   'vim',
   'zsh',

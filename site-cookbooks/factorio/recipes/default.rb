@@ -77,6 +77,14 @@ end
 default_save_dir = ::File.join(node.factorio.save_location, 'save_dirs', 'default-save')
 factorio_save_target = ::File.join(node.factorio.save_location, 'saves')
 
+directory 'save_dirs' do
+  owner 'factorio'
+  group 'factorio'
+  recursive true
+  mode '0755'
+  path ::File.join(node.factorio.save_location, 'save_dirs')
+end
+
 directory 'default_save' do
   owner 'factorio'
   group 'factorio'
