@@ -1,0 +1,10 @@
+{
+  "run_list": [
+    "recipe[base]",
+    "recipe[factorio]",
+    "recipe[factorio::api]"
+  ],
+  "automatic": {
+    "ipaddress": "aws-box"
+  }
+}
