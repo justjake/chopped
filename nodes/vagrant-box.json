@@ -2,7 +2,8 @@
   "run_list": [
     "recipe[base]",
     "recipe[factorio]",
-    "recipe[factorio::api]"
+    "recipe[factorio::api]",
+    "recipe[chopped_nginx]"
   ],
   "automatic": {
     "ipaddress": "127.0.0.1"

@@ -10,6 +10,15 @@ Goals of this cookbook:
 - generate clean NGINX config files from ruby data structures
 - cover common NGINX use cases with sensible defaults
 
+## TODOs
+
+- refactor libraries/chopped_nginx.rb; it's too big as-is
+- make some typical use case templates? model these off what we use at armada.systems
+- make sure that the chef run checks each resource as it is declared. right now
+  syntax errors can occur without failing the chef run. Maybe we need to handle
+  the NGINX service with runit?
+- should we just run `nginx -t -c <path to nginx.conf>`?
+
 ## Requirements
 
 written and tested on ubuntu 14.04 with Chef 12. Check the Gemfile.lock for this
