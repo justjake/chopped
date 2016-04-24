@@ -1,3 +1,6 @@
+# TODO: move to its own gem? put the chopped gem in a gems/ folder at the top of
+# the monorepo? I think that makes sense -- then there is one shared ruby
+# codebase that all our site-cookbooks depend upon....
 module Chopped
 end
 

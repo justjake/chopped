@@ -21,7 +21,7 @@ module Chopped
   end
 end
 
-require_relative './nginx/ast'
 require_relative './nginx/dsl'
+require_relative './nginx/ast'
 require_relative './nginx/config'
 require_relative './nginx/helper'

@@ -24,7 +24,7 @@ module Chopped
       #   child
       #   ...
       # }
-      class Context < Struct.new('Context', :title, :children)
+      Context = Struct.new('Context', :title, :children) do
         include DSL
 
         def initialize(title, children = [], &block)

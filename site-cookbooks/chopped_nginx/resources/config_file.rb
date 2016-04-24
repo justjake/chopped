@@ -15,7 +15,7 @@ action :create do
   end
 
   file new_resource.path do
-    content Chopped::Nginx.config(&new_resource.config_proc)
+    content Chopped::Nginx::Config.from_dsl(new_resource.config_proc)
     action :create
     notifies :run, 'execute[check_nginx_config]', :immediately
     notifies :reload, 'service[nginx]', :immediately

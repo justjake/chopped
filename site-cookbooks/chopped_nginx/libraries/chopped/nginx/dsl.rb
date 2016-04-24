@@ -38,7 +38,7 @@ module Chopped
       # We do this here so we would override nginx directives that conflict with
       # our own methods.
       load_support(
-        Pathname.new(__FILE__).dirname.join('direcrives_list.txt').to_s
+        Pathname.new(__FILE__).dirname.join('directives_list.txt').to_s
       )
 
       # a more intelligent instance_eval that allows both styles of dsl:
