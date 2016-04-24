@@ -1,4 +1,6 @@
 # Installs an HTTP API alongside your factorio game service
+include_recipe 'chopped_nginx'
+
 require 'yaml'
 
 package 'ruby-dev'
@@ -37,4 +39,20 @@ end
 
 runit_service 'factorio-api' do
   default_logger true
+end
+
+# set up reverse proxy for our factorio server
+chopped_nginx_http 'factorio-api-proxy' do
+  config do
+    comment 'proxy the sinatra app on 4567 that provides the api'
+    comment 'todo: make sinatra more production-y... with unicorn?'
+    server do
+      listen 80
+
+      location '/' do
+        proxy_set_header :Host, '$host'
+        proxy_pass 'http://localhost:4567'
+      end
+    end
+  end
 end
