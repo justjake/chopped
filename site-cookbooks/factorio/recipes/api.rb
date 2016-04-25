@@ -3,8 +3,8 @@ include_recipe 'chopped_nginx'
 
 require 'yaml'
 
-package 'ruby-dev'
-gem_package 'bundler'
+# (debian) package seems to be 1000x faster than gem_package
+package 'bundler'
 
 remote_directory node.factorio.api.install_location do
   source 'app'
@@ -20,7 +20,7 @@ file 'config' do
 end
 
 execute 'bundle_install' do
-  command 'bundle install --deployment'
+  command 'bundle install --deployment --without development'
   cwd node.factorio.api.install_location
 end
 
@@ -44,14 +44,13 @@ end
 # set up reverse proxy for our factorio server
 chopped_nginx_http 'factorio-api-proxy' do
   config do
-    comment 'proxy the sinatra app on 4567 that provides the api'
-    comment 'todo: make sinatra more production-y... with unicorn?'
+    comment 'proxy to a Thin server hosting our Sinatra app'
     server do
       listen 80
 
       location '/' do
         proxy_set_header :Host, '$host'
-        proxy_pass 'http://localhost:4567'
+        proxy_pass "http://unix:#{node.factorio.api.socket_location}:"
       end
     end
   end
