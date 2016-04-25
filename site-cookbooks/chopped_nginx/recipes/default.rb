@@ -35,9 +35,17 @@ chopped_nginx_config_file 'nginx.conf' do
     comment 'create nginx_bare resources to access the main nginx context'
     # the config just handles sourcing the other configs
     include helper.bare_d.join('*').to_s
+
     http do
       comment 'create nginx_http resources to access the http context'
       include helper.http_d.join('*').to_s
+    end
+
+    comment 'this section is required to be in the NGINX config'
+    comment 'initial converge will fail unless this is defined in root config'
+    events do
+      # is this needed?
+      worker_connections 768
     end
   end)
 end
@@ -49,11 +57,6 @@ chopped_nginx_bare '00_defaults' do
     user node.chopped.nginx.user
     worker_processes node.chopped.nginx.worker_processes
     pid node.chopped.nginx.pid_file
-
-    events do
-      # is this needed?
-      worker_connections 768
-    end
   end
 end
 
