@@ -25,7 +25,7 @@ module Chopped
   #     end
   #   end
   # end
-  class CombinedScope
+  class CombinedScope < BasicObject
     def initialize(child)
       @child = child
     end
