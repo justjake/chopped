@@ -97,10 +97,6 @@ module Chopped
       def comment(text)
         _push(::Chopped::Nginx::AST::Comment.new(text))
       end
-
-      def to_s
-        Chopped::Nginx::Config.stringify(self)
-      end
     end # end DSL
   end
 end
