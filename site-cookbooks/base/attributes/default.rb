@@ -1,9 +1,15 @@
 # install some basics
 default.site_packages = [
   'build-essential',
+  'ruby-dev',
+  'ruby',
   'git',
   'vim',
   'zsh',
+  # called the_silver_searcher on RHEL-like systems
+  # which we don't support
+  # obviously
+  'silversearcher-ag',
 ]
 
 ### openssh

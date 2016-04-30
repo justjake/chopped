@@ -1,11 +1,5 @@
-#
 # Cookbook Name:: factorio
 # Recipe:: default
-#
-# Copyright 2016, YOUR_COMPANY_NAME
-#
-# All rights reserved - Do Not Redistribute
-#
 
 # we need runit later. install deps now.
 include_recipe 'runit'

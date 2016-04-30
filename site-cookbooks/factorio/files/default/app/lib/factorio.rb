@@ -1,7 +1,6 @@
 require 'json'
 require 'pathname'
 require 'open3'
-require 'pry'
 
 class Factorio
   attr_accessor :config
