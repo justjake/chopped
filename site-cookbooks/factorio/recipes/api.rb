@@ -41,6 +41,8 @@ runit_service 'factorio-api' do
   default_logger true
 end
 
+the_location = "http://unix:#{node.factorio.api.socket_location}:"
+
 # set up reverse proxy for our factorio server
 chopped_nginx_http 'factorio-api-proxy' do
   config do
@@ -50,7 +52,7 @@ chopped_nginx_http 'factorio-api-proxy' do
 
       location '/' do
         proxy_set_header :Host, '$host'
-        proxy_pass "http://unix:#{node.factorio.api.socket_location}:"
+        proxy_pass the_location
       end
     end
   end
