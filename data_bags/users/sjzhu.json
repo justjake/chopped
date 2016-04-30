@@ -1,0 +1,10 @@
+{
+  "id": "sjzhu",
+  "password": "*",
+  "ssh_keys": [
+  "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDYGQWO69rkffq7qCxvrjhHQ809POEDV9hOc7+Liaf59EZxfGcySJDZx7rzwA2fuqOq1OGyKw2RPfEmetzLL7ooEgzGdN4O859aeCa6e8b6kzUHPy5XV4MfkghszboOdTX7iy3mAlNUag3UqO47KRJVwpBUlMc9PSCnUGEX7DO57eS0eM2vgmhYJqNk+I+mWuVVAneWyoIx24aE7hu/2LG+cBiL/9nrnrhmnZCGytQwbi7KbijeMrtT4tu45wtkCdSClHCZ22i4FjRCBBlRXYLytvP3WmNsDaQs1bM+kfi0fIkBm+7TUN9AaHwLHO15R2ylwcE4bN14O5lOoEWntSCL samuel_zhu@samuel-zhu.local"
+  ],
+  "groups": ["sysadmin"],
+  "shell": "/usr/bin/zsh",
+  "comment": "Samuel Zhu"
+}
