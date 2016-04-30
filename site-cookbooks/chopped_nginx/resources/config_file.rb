@@ -9,28 +9,18 @@ default_action :create
 helper = Chopped::Nginx::Helper.new(node)
 
 action :create do
-  execute 'check_nginx_config' do
-    command "nginx -t -c #{helper.conf}"
-    action :nothing
-  end
-
   file new_resource.path do
     content Chopped::Nginx::Config.from_dsl(new_resource.config_proc)
     action :create
-    notifies :run, 'execute[check_nginx_config]', :immediately
-    notifies :reload, 'service[nginx]', :immediately
+    notifies :run, 'execute[check_nginx_config]', :delayed
+    notifies :reload, 'service[nginx]', :delayed
   end
 end
 
 action :delete do
-  execute 'check_nginx_config' do
-    command "nginx -t -c #{helper.conf}"
-    action :nothing
-  end
-
   file new_resource.path do
     action :delete
-    notifies :run, 'execute[check_nginx_config]', :immediately
-    notifies :reload, 'service[nginx]', :immediately
+    notifies :run, 'execute[check_nginx_config]', :delayed
+    notifies :reload, 'service[nginx]', :delayed
   end
 end

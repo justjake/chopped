@@ -26,6 +26,12 @@ helper = Chopped::Nginx::Helper.new(node)
   end
 end
 
+# we will notify this resource when we modify a file
+execute 'check_nginx_config' do
+  command "nginx -t -c #{helper.conf}"
+  action :nothing
+end
+
 # our default configuration - just requires our other config di
 chopped_nginx_config_file 'nginx.conf' do
   path helper.home.join('nginx.conf').to_s
