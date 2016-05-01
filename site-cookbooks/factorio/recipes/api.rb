@@ -41,6 +41,10 @@ runit_service 'factorio-api' do
   default_logger true
 end
 
+runit_service 'factorio-notifier' do
+  default_logger true
+end
+
 the_location = "http://unix:#{node.factorio.api.socket_location}:"
 
 # set up reverse proxy for our factorio server
