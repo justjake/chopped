@@ -154,7 +154,7 @@ class Factorio
 
     def notify(string)
       # this goes in our log
-      puts "NOTIFY: #{string}"
+      STDERR.puts "NOTIFY: #{string}"
       # post to slack
       if @webhook
         @webhook.ping(string)
@@ -177,7 +177,7 @@ class Factorio
         log.tail do |line|
           event = LogLine.from_line(line)
           if event.is_info? && event.info_event
-            puts "EVENT #{event}"
+            STDERR.puts "EVENT #{event}"
             handle_event(event)
           end
         end
