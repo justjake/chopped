@@ -7,4 +7,4 @@ CONFIG = YAML::load(File.read(CONFIG_PATH))
 factorio = Factorio.new(CONFIG)
 
 LOG_FILE = '/var/log/factorio/current'
-factorio.players.tail_file(log_file)
+factorio.players.tail_file(LOG_FILE)
