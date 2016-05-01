@@ -170,6 +170,10 @@ class Factorio
 
     def tail_file(filename)
       File::Tail::Logfile.open(filename) do |log|
+        # be responsive
+        log.interval = 1
+        # go to end of file
+        log.backward(0)
         log.tail do |line|
           event = LogLine.from_line(line)
           if event.is_info? && event.info_event
