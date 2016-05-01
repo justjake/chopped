@@ -5,6 +5,7 @@ gem 'thin'
 gem 'sinatra'
 
 # for the join and leave notifier
+gem 'tins', '~> 1.6.0' # dependency of file-tail that wants ruby 2 sometimes
 gem 'file-tail'
 gem 'slack-notifier'
 
