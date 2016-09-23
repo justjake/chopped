@@ -12,6 +12,7 @@ remote_directory node.factorio.api.install_location do
   group 'root'
   mode '0755'
   notifies :restart, "runit_service[factorio-api]", :delayed
+  notifies :restart, "runit_service[factorio-notifier]", :delayed
 end
 
 file 'config' do
