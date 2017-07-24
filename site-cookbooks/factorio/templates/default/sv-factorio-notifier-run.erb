@@ -1,0 +1,6 @@
+#!/bin/bash -ex
+exec 2>&1
+
+cd <%= node.factorio.api.install_location %>
+exec chpst -u factorio \
+     bundle exec ruby ./notifier.rb

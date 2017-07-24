@@ -26,6 +26,10 @@ class Factorio
     @server ||= Factorio::ServerService.new(self)
   end
 
+  def players
+    @players ||= Factorio::PlayerService.new(self)
+  end
+
   ### locations
   def storage_location
     @sl ||= Pathname.new(config['save_location'])
@@ -50,3 +54,4 @@ require_relative './factorio/base_service'
 require_relative './factorio/save_service'
 require_relative './factorio/server_service'
 require_relative './factorio/mod_service'
+require_relative './factorio/players_service'
