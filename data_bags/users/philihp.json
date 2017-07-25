@@ -1,0 +1,10 @@
+{
+  "id": "philihp",
+  "password": "*",
+  "ssh_keys": [
+    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDGszy6kmv5FLRvgHCgnP31UEvIKehiCWKNIby9RuKv+257pjdTNU1OsnOMWXQJjhhQR5+y1/q6NMZhDyKX9x7vtHrT2xAjLRnDdodK4ioZcBP6HiKTdqJDP+8RXe2jxqa9j/MfAlHwJ7ZtCqUdZr552Sv6Hmdls7NntPy1tBJr2vRw072SniJggqwlfhegFpz6qa0YStbBiB1MTna/hOGdMe2peCd3b1mwQaPKfCqOeShfgAJptr8QRiRG3mWKXzzKS7aBTOKF57WvM2xNy6xi2v0krEWIZVY36QhYILwl1MHrii8JUQmySWNzPVP8rpI/x6WLx+TDnJqHQSXeBVr1 /Users/phil_busby/.ssh/id_rsa"
+  ],
+  "groups": ["sysadmin"],
+  "shell": "/usr/bin/zsh",
+  "comment": "Bepis"
+}

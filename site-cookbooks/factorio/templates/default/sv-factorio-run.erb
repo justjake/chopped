@@ -12,7 +12,7 @@ SAVE_PATH="<%= save_path %>"
 
 # create save if it does not exist
 if [ ! -f "$SAVE_PATH" ]; then
-  chpst -u factorio <%= exe_path %> --create <%= node.factorio.save_name %>
+  chpst -u factorio <%= exe_path %> --create <%= node.factorio.save_name %>.zip
 else
   # Check if there's a more recent autosave (e.g. server crashed)
   LATEST_SAVEFILE="$(ls -t "$SAVE_DIR" 2>/dev/null | head -1)"
@@ -39,10 +39,7 @@ command = [
   exe_path,
   "--config #{::File.join(node.factorio.config_location, 'config.ini')}",
   "--port #{node.factorio.port}",
-  "--start-server #{node.factorio.save_name}",
-  "--autosave-interval #{node.factorio.autosave_interval}",
-  "--autosave-slots #{node.factorio.autosave_slots}",
-  "--latency-ms #{node.factorio.latency}",
+  "--start-server #{node.factorio.save_name}.zip",
   node.factorio.extra_bin_args,
 ].join(' ')
 %>
