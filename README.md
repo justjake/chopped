@@ -51,6 +51,27 @@ Perform this one-time setup:
 1. `bundle exec knife solo prepare ubuntu@12.34.56.78 -i ~/.ssh/leroy_jenkins.pem` This will load
    all the chef stuff onto it, and give you a file `nodes/12.34.56.78.json`.
 
+### B-b-b-but... Vagrant?
+
+Instead of starting up a node on AWS, do this:
+
+1. `vagrant up`
+1. `bundle exec knife solo prepare vagrant@127.0.0.1 -p 2222 -i
+   ./.vagrant/machines/default/virtualbox/private_key`
+   prepares your Vagrant machine for knife-solo development by setting up chef on it.
+1. Run `vagrant snapshot save chef`. If your VM ever becomes inaccessable due to
+   bad chef changes, you can always run `vagrant snapshot restore chef` to reset
+   it to this known-good state.
+
+Your file created will be `nodes/127.0.0.1`.
+
+### Creating a cookbook
+
+Put cookbooks in the `site-cookbooks` folder. `cookbooks` folder is reserved
+for upstream dependencies.
+
+`knife cookbook create -o site-cookbooks/ YOUR_NEW_COOKBOOK`
+
 ### GO GO GADGET COOKBOOK.
 
 1. `vi nodes/12.34.56.78.json` and add roles to the run_list. These are the recipes that your box
@@ -61,3 +82,22 @@ Perform this one-time setup:
 
 On future runs you should be using your own user account to cook and clean the
 box, since the vagrant user may no longer be allowed to SSH.
+
+### Testing chef in Vagrant
+
+Then, you can provision your own box using `knife solo` to test out this
+chef repo. I haven't done this yet.
+
+### Useful tips
+
+Put `127.0.0.1 vagrant-box` to your /etc/hosts file, and a section like this to
+your SSH config:
+```
+Host vagrant-box
+  UserKnownHostsFile /dev/null
+  StrictHostKeyChecking no
+  Port 222
+```
+This makes later access via your user `ssh leroy_jenkins@vagrant-box` or `bundle exec
+knife solo prepare leroy_jenkins@vagrant-box` instead of needing to manually specify
+the port.
