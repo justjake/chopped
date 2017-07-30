@@ -1,7 +1,7 @@
 default.factorio.debug = false
 
 # installation settings
-default.factorio.version = '0.12.29'
+default.factorio.version = '0.14.23'
 # HTTPS doesn't work for some reason
 default.factorio.download_uri = 'http://www.factorio.com/get-download/%{version}/headless/linux64'
 default.factorio.tmp_location = '/tmp/factorio-install-process'
