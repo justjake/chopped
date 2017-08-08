@@ -3,6 +3,7 @@
   "password": "*",
   "ssh_keys": [
     "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCH49MowecaQa7lt3S3xjqo2g72j6/7x9RqGO3OTYOAfpaQM6DFDTbU14+3GPNZSDgAqGbH7sIkTuOrMedJ5Qb9XczjfRe6Ut8D4Lhdu5r07IWSgWwA0I+k7nPUX6ySmID89IVQiAHXgcObVcRA9OZeCpk7fn71IMVvIeKZUV80AwOFkrcyaQ0Ymo1XiIJIvtcl9Ba1Ko5pjji+1icm/eMEbAMp0Gyg20dXM7/sky9G9uIpGYVSgOuDcfUXHYdahHQKinXKdpSsh20CTYnEtQ4OTJv1+PKln4a98psIO3vuWbH9Oc58CSfgkkdEvEfI6jmBemlRyeN/yhqWZmp1aBoB jake.teton-landis+goldkey@airbnb.com",
+    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCUwAEWIM+/Yvh6ZH/CW2YCD9+E7TaiJHNxQIlFu4PKbitlklBJ75rcSo4lFVHUNh/TxmdPHb8nCO5zf+p7f+LoFk2MaDgfE2Y21bB/JtVDzSJCBD7+Ix/H+VMA6q5EGCjXe1GVBnN6+i2HZDPDJW3MOd74D1/FDce1cIez1f8R21SDmk1u09hTxnLZbA8qA+q3mbRErH3tL2R11dLCLfqLc4hOw1JNtLUoH7cwOD2I3shQPZnSk7PIyiCgTvmFcfI3yoXGyFktqL5EhgywmGEZVB4TI++7Q6eDU5Pqyd+vy0t8mtwZ9Bb1A5FGH++tcDluaAenqFvTMgZF7hlzVbXn jake.teton-landis+yubikey@airbnb.com",
     "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDc1rtY/lACkvwera0sXYP6Sm8NktMNQVu6+wdFujiQFr6/Wa5oPRbu2R9xnNuYjfUPz3tb6MHWoaO5wI/CmDDGyltvXz20GO8IfVUVpzh30nzHitFU6obOX7+WtohyV5nm9DP6iZK+2enAUMHhe2rOANVyw1eu7WNDc1Kkq/LivCqucOHcecahnINH0L4y3l99jDwz9CEi6rgiDgZaeEDoy8372AfX9tstrSxILgQU83wn8i7kds+b1kCCg9/QIolQ1xIbg371IvUde9mBOtZ3e3bL5PbBvPWwaTjfohiWU4J7D0o5Ti0nwaPDcAFL+30tJbXjkKVVCVVELuG5aJDj jake.tl@airbnb.com"
   ],
   "groups": ["sysadmin"],
