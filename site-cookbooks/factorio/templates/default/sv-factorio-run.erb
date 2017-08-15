@@ -10,6 +10,8 @@ exe_path = node.factorio.binary % {install_location: node.factorio.install_locat
 SAVE_DIR="<%= save_dir %>"
 SAVE_PATH="<%= save_path %>"
 
+cd <%= save_dir %>
+
 # create save if it does not exist
 if [ ! -f "$SAVE_PATH" ]; then
   chpst -u factorio <%= exe_path %> --create <%= node.factorio.save_name %>.zip
