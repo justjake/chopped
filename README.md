@@ -88,7 +88,22 @@ box, since the vagrant user may no longer be allowed to SSH.
 Then, you can provision your own box using `knife solo` to test out this
 chef repo. I haven't done this yet.
 
-### Useful tips
+## Upgrading Server
+
+Goto `/opt/factorio/storage/saves` and save a copy of the map somewhere.
+
+Goto `/opt` and rename the `factorio` server to something, idk like `factorio-0.15.31`. This
+will make the `is_installed` variable in the `site-cookbooks/factorio/recipes/default.rb` come
+up false, so it will reinstall.
+
+Then do a cook command again (you'll prob have to use your own login now),
+`bundle exec knife solo cook leroy_jenkins@12.34.56.78`, and it will install again. Resolve
+any install problems, stuff breaks a lot. Check out `/var/log/factorio/current` for what's
+going on.
+
+Copy your save back into the server.
+
+## Useful tips
 
 Put `127.0.0.1 vagrant-box` to your /etc/hosts file, and a section like this to
 your SSH config:

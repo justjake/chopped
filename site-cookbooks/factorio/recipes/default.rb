@@ -42,7 +42,7 @@ download_uri = node.factorio.download_uri % {version: node.factorio.version}
 
 remote_file 'download' do
   source download_uri
-  path File.join(node.factorio.tmp_location, 'factorio.tar.gz')
+  path File.join(node.factorio.tmp_location, 'factorio.tar.xz')
   not_if(&is_installed)
 end
 
@@ -52,7 +52,7 @@ bash 'install' do
   creates 'maybe'
   code <<-EOH
     ERROR=0
-    tar xzf factorio.tar.gz || ERROR=1
+    tar xJf factorio.tar.xz || ERROR=1
     rmdir #{node.factorio.install_location} || ERROR=1
     mv factorio #{node.factorio.install_location} || ERROR=1
     exit $ERROR
